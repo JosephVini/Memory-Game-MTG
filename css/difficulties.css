@@ -1,0 +1,57 @@
+.difficultie-form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    background-image: url('../img/BG-Color-v4.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.difficultie__header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.difficultie__header img {
+    width: 100px;
+    backface-visibility: hidden;
+}
+
+.difficultie__header h1 {
+    padding: 5px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+legend {
+    font-size: 1.2rem;
+}
+
+.difficulties{
+    display: flex;
+    font-size: 1rem;
+    padding: 10px;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    background-color: #4e9ee3;
+    margin: 15px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    max-width: 300px;
+    padding: 15px;
+    width: 100%;
+    text-decoration: none;
+}
