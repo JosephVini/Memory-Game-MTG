@@ -15,7 +15,11 @@ const validateInput = ({ target }) => {
 const handleSubmit = (event) => {
     event.preventDefault();
 
+    const levelSelect = document.getElementById('level')
+    const selectedLevel = levelSelect.value
+
     localStorage.setItem('Player', input.value);
+    localStorage.setItem('Level', selectedLevel);
     window.location = 'pages/game.html'
 }
 

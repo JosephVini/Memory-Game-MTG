@@ -11,39 +11,47 @@ const colors = [
     'five-color'
 ]
 
-// const guilds = [
-//     'Azorius',
-//     'Boros',
-//     'Dimir',
-//     'Golgari',
-//     'Gruul',
-//     'Izzet',
-//     'Orzhov',
-//     'Rakdos',
-//     'Selesnya',
-//     'Simic'
-// ]
+const guilds = [
+    'Azorius',
+    'Boros',
+    'Dimir',
+    'Golgari',
+    'Gruul',
+    'Izzet',
+    'Orzhov',
+    'Rakdos',
+    'Selesnya',
+    'Simic'
+]
+
 
 const createElement = (tag, className) => {
     const element = document.createElement(tag);
     element.className = className;
     return element;
-}
+};
 
-let firstCard = '';
-let secondCard = '';
+let firstCard = null;
+let secondCard = null;
 
 const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
-    if (disabledCards.length === (colors.length * 2) ) {
-        clearInterval(this.loop);
-        alert(`Parabens, ${spanPlayer.innerHTML}! Seu tempo foi de: ${timer.innerHTML} segundos`);
+    if (localStorage.getItem('Level') === 'easy'){
+        if (disabledCards.length === (colors.length * 2)) {
+            clearInterval(this.loop);
+            alert(`Parabens, ${spanPlayer.innerHTML}! Seu tempo foi de: ${timer.innerHTML} segundos`);
+        }
+    } else if (localStorage.getItem('Level') === 'medium'){
+        if (disabledCards.length === (guilds.length * 2)) {
+            clearInterval(this.loop);
+            alert(`Parabens, ${spanPlayer.innerHTML}! Seu tempo foi de: ${timer.innerHTML} segundos`);
+        } 
     }
 
 }
 
-const checkCards = () => {
+const checkCardsColor = () => {
     const firstColor = firstCard.getAttribute('data-color');
     const secondColor = secondCard.getAttribute('data-color');
 
@@ -51,37 +59,63 @@ const checkCards = () => {
         firstCard.firstChild.classList.add('disabled-card');
         secondCard.firstChild.classList.add('disabled-card');
 
-        firstCard = '';
-        secondCard = '';
+        firstCard = null;
+        secondCard = null;
 
-        checkEndGame()
-
+        checkEndGame();
     } else {
         setTimeout(() => {
             firstCard.classList.remove('reveal-card');
             secondCard.classList.remove('reveal-card');
 
-            firstCard = '';
-            secondCard = '';
-        }, 600)
+            firstCard = null;
+            secondCard = null;
+        }, 600);
     }
-}
+};
+
+const checkCardsGuild = () => {
+    const firstGuild = firstCard.getAttribute('data-guild');
+    const secondGuild = secondCard.getAttribute('data-guild');
+
+    if (firstGuild === secondGuild) {
+        firstCard.firstChild.classList.add('disabled-card');
+        secondCard.firstChild.classList.add('disabled-card');
+
+        firstCard = null;
+        secondCard = null;
+
+        checkEndGame();
+    } else {
+        setTimeout(() => {
+            firstCard.classList.remove('reveal-card');
+            secondCard.classList.remove('reveal-card');
+
+            firstCard = null;
+            secondCard = null;
+        }, 600);
+    }
+};
 
 const revealCard = ({ target }) => {
     if (target.parentNode.className.includes('reveal-card')) {
-        return
+        return;
     }
 
-    if (firstCard === '') {
+    if (!firstCard) {
         target.parentNode.classList.add('reveal-card');
-        firstCard = target.parentNode
-    } else if (secondCard === '') {
+        firstCard = target.parentNode;
+    } else if (!secondCard) {
         target.parentNode.classList.add('reveal-card');
-        secondCard = target.parentNode
+        secondCard = target.parentNode;
 
-        checkCards();
+        if (localStorage.getItem('Level') === 'easy') {
+            checkCardsColor();
+        } else if (localStorage.getItem('Level') === 'medium') {
+            checkCardsGuild()
+        }
     }
-}
+};
 
 const createCardColor = (color) => {
     const card = createElement('div', 'card');
@@ -99,28 +133,60 @@ const createCardColor = (color) => {
     return card;
 }
 
+const createCardGuild = (guild) => {
+    const card = createElement('div', 'card');
+    const front = createElement('div', 'face front');
+    const back = createElement('div', 'face back');
+
+    front.style.backgroundImage = `url('../img/Guildas/${guild}.png')`;
+
+    card.appendChild(front);
+    card.appendChild(back);
+
+    card.addEventListener('click', revealCard)
+    card.setAttribute('data-guild', guild)
+
+    return card;
+}
+
 const loadGame = () => {
     let duplicateCard = []
     let shurfledArray = []
 
-    duplicateCard = [...colors, ...colors]
-    shurfledArray = duplicateCard.sort(() => Math.random() - 0.5)
-    shurfledArray.forEach((color) => {
-        const card = createCardColor(color);
-        grid.appendChild(card);
-    })
+    if (localStorage.getItem('Level') === 'easy') {
+        duplicateCard = [...colors, ...colors]
+        shurfledArray = duplicateCard.sort(() => Math.random() - 0.5)
+        shurfledArray.forEach((color) => {
+            const card = createCardColor(color);
+            grid.appendChild(card);
+        })
+    }
+    else if (localStorage.getItem('Level') === 'medium') {
+        duplicateCard = [...guilds, ...guilds]
+        shurfledArray = duplicateCard.sort(() => Math.random() - 0.5)
+
+        grid.setAttribute('style', 'grid-template-columns: repeat(10, 1fr)')
+
+        shurfledArray.forEach((guild) => {
+            const card = createCardGuild(guild)
+            grid.appendChild(card)
+        })
+    } else if (localStorage.getItem('level') === 'hard') {
+        
+    }
 }
+
+
 
 const startTimer = () => {
     this.loop = setInterval(() => {
-        const currentTime = +timer.innerHTML
-        timer.innerHTML = currentTime + 1
-    }, 1000)
-} 
+        const currentTime = +timer.innerHTML;
+        timer.innerHTML = currentTime + 1;
+    }, 1000);
+};
 
 window.onload = () => {
     spanPlayer.innerHTML = localStorage.getItem('Player');
     startTimer();
     loadGame();
-}
-
+};
