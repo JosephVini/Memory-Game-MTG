@@ -14,6 +14,8 @@ Olá, esse é um projeto inspirado no meu jogo favorito, Magic: The Garthering.
 
 [link do jogo](https://josephvini.github.io/Memory-Game-MTG/)
 
+Meu melhor tempo foi de 19 segundos.
+
 ## Referencias:
 
 Utilizei essa playList para estudo: 
