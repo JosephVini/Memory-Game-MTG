@@ -10,7 +10,7 @@ Olá, esse é um projeto inspirado no meu jogo favorito, Magic: The Garthering.
 
 ## Jogo: 
 
-![gif do jogo - Nivel 1](.github/assets)
+![gif do jogo - Nivel 1](.github/assets/Memory-Game%20-%20Nivel%201.gif)
 
 [link do jogo](https://josephvini.github.io/Memory-Game-MTG/)
 
