@@ -4,9 +4,10 @@ Olá, esse é um projeto inspirado no meu jogo favorito, Magic: The Garthering.
 É um jogo da memoria em que o player tem que achar os pares de cada carta.
 
 ## Tecnologias Utilizadas:
-* HTML
-* CSS
-* JavaScript
+
+![JavaScript](https://cdn-icons-png.flaticon.com/128/3097/3097978.png)
+![CSS](https://cdn-icons-png.flaticon.com/128/2786/2786979.png)
+![HTML](https://cdn-icons-png.flaticon.com/128/2786/2786969.png)
 
 ## Jogo: 
 
